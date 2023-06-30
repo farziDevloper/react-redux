@@ -13,7 +13,7 @@ function App() {
   let details =	{"name":"test","salary":"123","age":"23"}
   const dispatch = useDispatch();
     React.useEffect(() => {
-      dispatch(fetchAllData(x))
+      // dispatch(fetchAllData(x))
       // dispatch(fetchPostData(details))
 
     } ,[])
