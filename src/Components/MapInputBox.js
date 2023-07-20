@@ -1,97 +1,179 @@
 import React, { useEffect } from 'react'
 import MaterialInput from '../UI/MaterialInput';
 import { useState } from 'react';
-// import { inputBoxData } from './data'
+import { TransitionsModal } from './ModalBox';
+// import { inputBoxData } from './e'
+
 
 const inputBoxData = [
-    {
-      id: "1",
-      placeholder: "hello",
-      type: "text",
-      order: 0,
-      options: [],
-      classes: "hi",
-      name: "inputBox"
-    },
-    {
-      id: "2",
-      placeholder: "wdf",
-      type: "select",
-      order: 0,
-      name: "selectBox",
-      options: [
-        {label: "abhi", value: "abhi" },
-        { label: "singh", value: "singh" },
-        {label: "here", value: "here" },
-      ],
-      classes: "sdfg",
-    },
-  ];
+  {
+    id: "1",
+    placeholder: "placeholder",
+    type: "text",
+    order: 0,
+    options: [],
+    classes: "hi",
+    name: "inputBox",
+    value: ""
+  },
+  {
+    id: "2",
+    placeholder: "placeholder",
+    type: "select",
+    order: 0,
+    name: "selectBox",
+    value: "",
+    options: [
+      {label: "abhi", value: "abhi" },
+      { label: "singh", value: "singh" },
+      {label: "None", value: "none" },
+    ],
+    classes: "sdfg",
+  },
+  {
+    id: "3",
+    placeholder: "placeholder",
+    type: "text",
+    order: 0,
+    options: [],
+    classes: "hi",
+    name: "inpox",
+    value: ""
+  },
+  {
+    id: "4",
+    placeholder: "hello world",
+    type: "select",
+    order: 0,
+    name: "secondBox",
+    value: "",
+    options: [
+      {label: "one", value: "one" },
+      { label: "two", value: "two" },
+      {label: "None", value: "none" },
+    ],
+    classes: "sdfg",
+  },
+  
+];
 
-const formField = {
-  inputBox : "",
-  selectBox:''
-}
+
+
+
+
+
+
 
 const MapInputBox = () => {
-  const [formData , setFormData] = useState({...formField})
-
-  const handleFormDataChange = (event) => {
-    const re = /^[0-9\b]+$/;
-
-      if (event.target.value === "" || re.test(event.target.value)) {
-        setFormData({
-          ...formData,
-          [event.target.name]: event.target.value,
-        });
-  
-    } else {
-      setFormData({
-        ...formData,
-        [event.target.name]: event.target.value,
-      });
-    }
+  const [data, setData] = useState([...inputBoxData]);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [modalValue, setModalValue] = useState("");
 
 
-  };
-  console.log("formdata >>> > > >> > >  > >" , formData);
+  const [open, setOpen] = React.useState(false);
+
   useEffect(() => {
 
-  } ,[])
-  const handleStateChange = (selectedState) => {
-    setFormData({
-      ...formData,
-      ["selectBox"]: selectedState.value,
+  },[modalValue])
+
+  const handleModalInputChange = (e) => {
+    let value = e?.target?.value;
+    console.log("value >>>> > > > > ",value);
+    setModalValue(value);
+    onChangeHandler(value)
+  };
+
+  const handleStateChange = (type, e, index, name, id) => {
+    const value = type === 'text' ? e.target.value : e.value;
+  
+    const updatedData = data.map((item) => {
+      if (item.id === id) {
+        if (type === 'select') {
+          if (value === 'none') {
+            setOpen(true);
+            setSelectedIndex(index); // Store the index of the input box that triggered the modal
+          }
+        }
+        return { ...item, value: value };
+      }
+      return item;
     });
-    if(selectedState?.target?.type == "text"){
-      let value = selectedState.target.value;
-      setFormData({
-        ...formData,
-        [selectedState.target.name]: value,
-      })
+  
+    setData(updatedData);
+  };
+
+// const handleStateChange = (type, e, index, name, id) => {
+//   const value = type === 'text' ? e.target.value : e.value;
+
+//   if (type === 'select' && value === 'none') {
+//     setSelectedInputId(id); // Set the selected input ID
+//     setOpen(true); // Open the modal
+//   } else {
+//     const updatedData = data.map((item) => {
+//       if (item.id === id) {
+//         return { ...item, value: value };
+//       }
+//       return item;
+//     });
+
+//     setData(updatedData);
+//   }
+// };
+
+const onChangeHandler = (e) => {
+  const updatedData = data.map((item, index) => {
+    console.log(selectedIndex ,"handleModalInputChange" , index , modalValue);
+    if (index === selectedIndex) {
+      return { ...item, value: e};
+    }
+    return item;
+  });
+
+  setData(updatedData);
+};
+
+
+  
+
+  console.log("data " , data);
+
+  return (
+    <div>
+      <div style={{ width: '25%', justifyContent: 'center', alignItems: 'center' }}>
+        {data.map((e, index) => {
+          console.log("e value > > > > > >", e.value);
+          return (
+            <div key={index}>
+              <MaterialInput
+                id={e.id}
+                type={e.type}
+                placeholder={e.placeholder}
+                name={e.id}
+                options={e.options}
+                value={e.value}
+                onChange={(abhi) => {
+                  handleStateChange(e.type, abhi, index, e.name, e.id);
+                }}
+              />
+            </div>
+          );
+        })}
+      </div>
+    {<TransitionsModal 
+    setOpen={setOpen}
+     open={open} 
+     selectedIndex={selectedIndex}
+      modalValue={modalValue}
+      // onChangeHandler={onChangeHandler}
+      setSelectedIndex={setSelectedIndex}
+      handleModalInputChange={handleModalInputChange}
+      setModalValue={setModalValue}
+      />
 
     }
 
-    // console.log( "dfghjkljhgfbnmklfvbnmhg", selectedState.target.type);
-    // console.log( "dfghjkljhgfbnmklfvbnmhg", selectedState);
-
-
-  };
-
-
-  return (
-    <div> 
-      hello
-      <div style={{width:'25%', justifyContent:'center', alignItems:'center'}}>
-      {inputBoxData.map((data , index) =>{ 
-        return (
-           <div key={index} > <MaterialInput type={data.type} placeholder={data.placeholder} name={data.name}  options={data.options} value={formData.value} onChange={handleStateChange} /> </div>
-        )
-        })}
-        <input type='options' />
-      </div>
     </div>
-  )
-}
+  );
+};
 
-export default MapInputBox
+export default MapInputBox;

@@ -5,6 +5,7 @@ import { fetchPostData } from "./Redux/Action/postAction";
 
 import Abhishek from "./Abhi";
 import MapInputBox from "./Components/MapInputBox";
+import ImageUpload from "./Components/MultipleImages";
 
 
 function App() {
@@ -22,12 +23,13 @@ function App() {
     // const postApi = useSelector((state) => state.post);
     // console.log("postApi " ,postApi);
 
-      console.log("getApi" ,getApi);
+      // console.log("getApi" ,getApi);
   return (
     <div className="App">
 
   <button onClick={() => setShowPopUp(!showPopup) }>post</button>
-      <MapInputBox />
+      {/* <MapInputBox /> */}
+      <ImageUpload />
        {/* {showPopup &&  <Abhishek/>} */}
        
     </div>
