@@ -6,6 +6,10 @@ import { fetchPostData } from "./Redux/Action/postAction";
 import Abhishek from "./Abhi";
 import MapInputBox from "./Components/MapInputBox";
 import ImageUpload from "./Components/MultipleImages";
+import PreviewMultipleImages from "./Components/MultipleImages";
+import ImageBox from "./Components/ImageBox";
+import FilePreviewer from "./Components/FilePreview";
+import SelectBox from "./Components/SelectBox";
 
 
 function App() {
@@ -27,10 +31,14 @@ function App() {
   return (
     <div className="App">
 
-  <button onClick={() => setShowPopUp(!showPopup) }>post</button>
+  {/* <button onClick={() => setShowPopUp(!showPopup) }>post</button> */}
       {/* <MapInputBox /> */}
-      <ImageUpload />
+      {/* <ImageUpload /> */}
+      {/* <PreviewMultipleImages /> */}
+    {/* <ImageBox /> */}
        {/* {showPopup &&  <Abhishek/>} */}
+       {/* <FilePreviewer /> */}
+       <SelectBox />
        
     </div>
   );

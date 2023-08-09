@@ -1,45 +1,55 @@
-import React, { useState } from 'react';
-import { Button, Grid, ImageList, ImageListItem, ImageListItemBar, Typography } from '@mui/material';
+import React, { useState, useEffect } from "react";
 
-const ImageUploader = () => {
-    console.log("call 0");
-    let arr = [];
-    console.log("call 1");
-  const [selectedImages, setSelectedImages] = useState([...arr]);
-  console.log("call 2");
+const PreviewMultipleImages = () => {
+  const [images, setImages] = useState([]);
+  const [imageURLS, setImageURLs] = useState([]);
+  useEffect(() => {
+    if (images.length < 1) return;
+    const newImageUrls= [];
+    images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+    setImageURLs(newImageUrls);
+  }, [images]);
 
-  const handleImageChange = (event) => {
-    window.stop()
-    console.log("call 3");
-    const fileArray = Array.from(event.target.files);
-    const selectedImageURLs = fileArray.map((file) => URL.createObjectURL(file));
-    // arr.push(selectedImageURLs)
-    setSelectedImages(selectedImageURLs);
-};
-arr.push(selectedImages)
-console.log("selected images" , arr);
-
+  function onImageChange(e) {
+    setImages([...e.target.files]);
+  }
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <input type="file" accept="image/*" multiple onChange={handleImageChange} />
-      </Grid>
-      {selectedImages.length > 0 && (
-        <Grid item xs={12}>
-          <Typography variant="subtitle1">Selected Images:</Typography>
-          <ImageList cols={3} gap={8}>
-            {arr.map((imageUrl, index) => (
-              <ImageListItem key={index}>
-                <img src={imageUrl} alt={`Image ${index}`} />
-                <ImageListItemBar title={`Image ${index + 1}`} />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        </Grid>
-      )}
-    </Grid>
+    <>
+      <input type="file" multiple accept="image/*" onChange={onImageChange} />
+      {imageURLS.map((imageSrc) => (
+        <img src={imageSrc} alt="not fount" width={"250px"} />
+      ))}
+    </>
   );
 };
 
-export default ImageUploader;
+export default PreviewMultipleImages;
+
+
+
+// import { useState } from "react";
+// import ImagesGallery from "./ImagesGallery";
+// function PreviewMultipleImages(){
+//    const [images, setImages] = useState([]);
+//    const handleMultipleImages =(evnt)=>{
+//       const selectedFIles =[];
+//       const targetFiles =evnt.target.files;
+//       const targetFilesObject= [...targetFiles]
+//       targetFilesObject.map((file)=>{
+//          return selectedFIles.push(URL.createObjectURL(file))
+//       })
+//       setImages(selectedFIles);
+//     }
+//     console.log("images >>>>.", images);
+// return(
+//     <>
+//     <div className="form-group my-3 mx-3">
+//     <input type="file" onChange={handleMultipleImages} multiple/>
+//     </div>
+//       <ImagesGallery images={images} />
+//    </>
+// )
+// }
+// export default PreviewMultipleImages
+

@@ -152,7 +152,7 @@ const onChangeHandler = (e) => {
                 options={e.options}
                 value={e.value}
                 onChange={(abhi) => {
-                  handleStateChange(e.type, abhi, index, e.name, e.id);
+                handleStateChange(e.type, abhi, index, e.name, e.id);
                 }}
               />
             </div>
