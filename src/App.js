@@ -10,6 +10,10 @@ import PreviewMultipleImages from "./Components/MultipleImages";
 import ImageBox from "./Components/ImageBox";
 import FilePreviewer from "./Components/FilePreview";
 import SelectBox from "./Components/SelectBox";
+import FileUpload from "./Components/FileUpload";
+import { HandleUpload } from "./Components/HandleUpload";
+import VideoInput from "./Components/VideoInput";
+
 
 
 function App() {
@@ -38,7 +42,10 @@ function App() {
     {/* <ImageBox /> */}
        {/* {showPopup &&  <Abhishek/>} */}
        {/* <FilePreviewer /> */}
-       <SelectBox />
+       {/* <SelectBox /> */}
+    {/* <FileUpload /> */}
+    {/* <HandleUpload /> */}
+    <VideoInput />
        
     </div>
   );
