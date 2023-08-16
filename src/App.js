@@ -13,12 +13,15 @@ import SelectBox from "./Components/SelectBox";
 import FileUpload from "./Components/FileUpload";
 import { HandleUpload } from "./Components/HandleUpload";
 import VideoInput from "./Components/VideoInput";
+import { db } from "./utils/Firebase";
+import FirebaseComponent from "./Components/FirebaseComponent";
 
 
 
 function App() {
   const [showPopup , setShowPopUp] = React.useState(false)
   let x = Math.floor((Math.random() * 10) + 1);
+
   let details =	{"name":"test","salary":"123","age":"23"}
   const dispatch = useDispatch();
     React.useEffect(() => {
@@ -45,8 +48,8 @@ function App() {
        {/* <SelectBox /> */}
     {/* <FileUpload /> */}
     {/* <HandleUpload /> */}
-    <VideoInput />
-       
+    {/* <VideoInput /> */}
+       <FirebaseComponent />
     </div>
   );
 }
