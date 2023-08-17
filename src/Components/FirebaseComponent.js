@@ -37,8 +37,9 @@ const FirebaseComponent = () => {
            
         },
         )
+        debugger
         const movies = await res.json();
-        const filteredData = Object.values(movies).filter(item => item.data.includes(search));
+        const filteredData = await Object.values(movies).filter(item => item.name.includes(search));
         
         setResponseData(filteredData);
       }
@@ -86,6 +87,20 @@ const FirebaseComponent = () => {
 <button onClick={(e) => searchUser(e)} >
 search
 </button>
+
+<br />
+
+<br />
+
+<br />
+
+<br />
+    {responseData && responseData.map((item , key) => {
+      return  <div key= {key}> 
+        <h2>Name  =  {item.name} </h2>
+      </div>
+    })}
+
     </>
   )
 }
